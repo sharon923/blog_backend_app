@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from blogs.serializer import RegisterSerializer, BlogSerializer
+from blogs.models import BlogModel
 
 # Create your views here.
 @csrf_exempt
@@ -28,3 +29,11 @@ def userBlog(request):
             return HttpResponse(json.dumps({"status":"success"}))
         else:
             return HttpResponse(json.dumps({"status":"failed"}))
+        
+
+@csrf_exempt
+def viewBlog(request):
+    if request.method == "POST":
+        blog_list = BlogModel.objects.all()
+        serialized_data = BlogSerializer(blog_list, many = True)
+        return HttpResponse(json.dumps(serialized_data.data))
