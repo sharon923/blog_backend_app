@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from blogs.models import RegisterModel
+from blogs.models import RegisterModel, BlogModel
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,4 +9,13 @@ class RegisterSerializer(serializers.ModelSerializer):
             "profile",
             "email",
             "password"
+        )
+
+class BlogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogModel
+        fields =(
+            "userId",
+            "title",
+            "message"
         )
